@@ -12,8 +12,7 @@ Users will have the ability to save their writing as an entry. They will also be
 To the right of the contenteditable div, there will be a series of tabs. By clicking on a tab, the user will access a different form of emphasis analysis. Users will be able to select a sentence-level emphasis tab, a word-order emphasis tab, or a flow tab. Initially, only sentence-level emphasis will be available.
 
 ## Wireframe
-![Image of Editor GUI]
-(wireframe/editorGUI.jpg)
+![Image of Editor GUI](wireframe/editorGUI.JPG)
 
 ## Technologies
 The following technologies were used to build the Emphasis Editor:
