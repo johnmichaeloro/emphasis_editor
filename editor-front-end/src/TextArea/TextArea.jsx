@@ -25,7 +25,7 @@ class TextArea extends Component {
           for (let i = 0; i < signsArr.length; i++) {
             let newArr = [];
             let signMarker = [signsArr[i].index_begin, signsArr[i].index_end];
-            
+            newArr.push(signMarker);
             this.setState({
                 signs: [...this.state.signs, signMarker]
               })
