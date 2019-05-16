@@ -58,7 +58,8 @@ class TextArea extends Component {
     return(
       <div className='textArea'>
         <input placeholder='title' value={this.state.title} onChange={(e)=>this.handleTitleChange(e)} id='entryTitle'/>
-        <textarea rows='20' cols='70'placeholder= "Emphasis AI is an experimental text editor. As you write, it analyzes your words and identifies natural patterns of emphasis. It does this using a simple, four-color highlighting system. To learn what each color means, read the tips on the right." className='placeHolderText' onChange={(e)=>this.handleTextChange(e)} value={this.state.text} id='entryText'/>
+        <textarea rows='5' cols='55'placeholder= "Enter your pattern here." className='placeHolderText' onChange={(e)=>this.handleTextChange(e)} value={this.state.text} id='entryText'/>
+        <textarea rows='5' cols='55' placeholder="Enter your description here." />
         <br></br>
         <div className='saveButton'>
           <input type='submit' text='Save' onClick={this.handleSubmit}/>
