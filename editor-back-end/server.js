@@ -22,3 +22,11 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions));
+
+const entryController = require('./controllers/entryController');
+
+app.use('/api/v1/entries', entryController);
+
+app.listen(process.env.PORT || 9000, () => {
+  console.log('listening on port 9000');
+})

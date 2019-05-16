@@ -8,20 +8,13 @@ import EntryView from './EntryView/EntryView';
 class App extends React.Component {
   render(){
     return(
-      <div class='wrapper'>
-        <div class='emphasisNav'>
+      <div className='wrapper'>
+        <div className='emphasisNav'>
           <EmphasisNav />
         </div>
-        <div class='textArea'>
+        <div className='textArea'>
           <TextArea />
-          <div class="emphasisTabs">
-            <EmphasisTabs />
-          </div>
-          <br></br>
-          <div class='saveButton'>
-            <button>Save</button>
-          </div>
-          <div class='entryView'>
+          <div className='entryView'>
             <EntryView />
           </div>
         </div>

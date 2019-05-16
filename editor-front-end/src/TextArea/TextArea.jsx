@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import HighlightedTextarea from 'react-highlighted-textarea';
 const axios = require('axios');
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -8,6 +7,7 @@ class TextArea extends Component {
   constructor(){
     super();
     this.state = {
+      title: '',
       text: '',
       signs: []
     }
@@ -21,6 +21,7 @@ class TextArea extends Component {
           input: text
         })
         .then((analysis) => {
+          //don't I need to enter a setState to empty the signs property here?
           let signsArr = analysis.data.analysis[0].signs;
           for (let i = 0; i < signsArr.length; i++) {
             let newArr = [];
@@ -33,29 +34,35 @@ class TextArea extends Component {
           }
         })
   }
-/**
-  doHighlight = () => {
-    return this.state.signs
-  }
-**/
-  handleChange = (e) => {
 
+  handleSubmit = (e) => {
+    console.log('clicked');
+  }
+  handleTitleChange = (e) => {
     this.setState({
-      text: e.target.value
+      title: e.target.value
     })
-
-    if (this.state.text[this.state.text.length - 1] === ' ' || this.state.text[this.state.text.length - 1] === '.'){
-    this.emphasisCall(this.state.text)
+    console.log(this.state.title);
   }
-}
+  handleTextChange = (e) => {
+      this.setState({
+        text: e.target.value
+      })
+
+      if (this.state.text[this.state.text.length - 1] === ' ' || this.state.text[this.state.text.length - 1] === '.'){
+      this.emphasisCall(this.state.text)
+    }
+  }
+
   render(){
     return(
-      <div class='container'>
-        <div class='backdrop' overflow='auto' background-color="#fff">
-          <div class='highlights' white-space='pre-wrap' word-wrap='break-word' color="transparent">
-          </div>
+      <div className='textArea'>
+        <input placeholder='title' value={this.state.title} onChange={(e)=>this.handleTitleChange(e)} id='entryTitle'/>
+        <textarea rows='20' cols='70'placeholder= "Emphasis AI is an experimental text editor. As you write, it analyzes your words and identifies natural patterns of emphasis. It does this using a simple, four-color highlighting system. To learn what each color means, read the tips on the right." className='placeHolderText' onChange={(e)=>this.handleTextChange(e)} value={this.state.text} id='entryText'/>
+        <br></br>
+        <div className='saveButton'>
+          <input type='submit' text='Save' onClick={this.handleSubmit}/>
         </div>
-        <textarea color="#444" background-color="transparent" margin="0" border-radius="0" rows='20' cols='70'placeholder= "Emphasis AI is an experimental text editor. As you write, it analyzes your words and identifies natural patterns of emphasis. It does this using a simple, four-color highlighting system. To learn what each color means, read the tips on the right." class='placeHolderText' onChange={(e)=>this.handleChange(e)} value={this.state.text} />
       </div>
     )
   }
