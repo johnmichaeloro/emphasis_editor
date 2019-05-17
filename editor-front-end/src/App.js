@@ -1,23 +1,31 @@
 import React from 'react';
+import EntryContainer from 'EntryContainer/EntryContainer';
+import {Route, Switch} from 'react-router-dom';
 import './App.css';
-import TextArea from './TextArea/TextArea';
-import EntryView from './EntryView/EntryView';
+import Login from './Login/Login';
+import Navbar from './Navbar/Navbar';
 
-class App extends React.Component {
-  render(){
-    return(
-      <div className='wrapper'>
-      <h1>Patterns of Emphasis</h1>
-        <div className='textArea'>
-          <TextArea />
-          <div className='entryView'>
-            <EntryView />
-          </div>
-        </div>
+const 404Error = () => {
+  return(
+    <div>
+      404 Error
+    </div>
+  )
+}
 
-      </div>
-    )
-  }
-};
+function App(){
+  return(
+    <div>
+      <main>
+        <Navbar />
+        <Switch>
+          <Route exact path='/' component={Login} />
+          <Route exact path='/entries' component={EntryContainer} />
+          <Route component={My404} />
+        </Switch>
+      </main>
+    </div>
+  );
+}
 
 export default App;
