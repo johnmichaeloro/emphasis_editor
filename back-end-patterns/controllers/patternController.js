@@ -26,4 +26,28 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res, next) => {
+  try{
+    const foundPattern = await Pattern.findById(req.params.id);
+    res.json({
+      status: 200,
+      data: foundPattern
+    });
+  } catch(err) {
+    res.send(err);
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  try{
+    const deletedPattern = await Pattern.findByIdAndRemove(req.params.id);
+    res.json({
+      status: 200,
+      data: deletedPattern
+    });
+  } catch(err) {
+    res.send(err);
+  }
+});
+
 module.exports = router;
