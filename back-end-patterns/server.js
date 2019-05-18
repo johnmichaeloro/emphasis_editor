@@ -29,6 +29,6 @@ const patternController = require('./controllers/patternController');
 
 app.use('/api/v1/patterns', patternController);
 
-app.listen(3000, () => {
-  console.log('listening on port 3000');
+app.listen(9000, () => {
+  console.log('listening on port 9000');
 });
