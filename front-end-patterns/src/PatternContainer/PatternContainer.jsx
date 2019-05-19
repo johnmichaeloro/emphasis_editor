@@ -68,6 +68,7 @@ class PatternContainer extends Component {
     return(
       <div>
         <h1>Patterns of Emphasis</h1>
+        <h3>A catalog of patterns of sentence-level emphasis</h3>
         <CreatePattern addPattern={this.addPattern}/>
         <PatternList patterns={this.state.patterns} deletePattern={this.deletePattern}/>
       </div>
