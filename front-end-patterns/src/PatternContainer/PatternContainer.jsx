@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import CreatePattern from './CreatePattern/CreatePattern';
 
 class PatternContainer extends Component {
   constructor(){
@@ -25,10 +26,35 @@ class PatternContainer extends Component {
       console.log(err);
     }
   }
+  addPattern = async (pattern, e) => {
+    e.preventDefault();
+    console.log('this is the new entry ', pattern);
+    try{
+      const createdPattern = await fetch('http://localhost:9000/api/v1/patterns', {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(pattern),
+        header: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const parsedResponse = await createdPattern.json();
+      console.log(parsedResponse);
+      this.setState({
+        patterns: [...this.state.patterns, parsedResponse.data]
+      });
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
   render(){
     console.log(this.state.patterns);
     return(
-      <p>Hello</p>
+      <div>
+        <h1>Patterns of Emphasis</h1>
+        <CreatePattern addPattern={this.addPattern}/>
+      </div>
     )
   }
 }
