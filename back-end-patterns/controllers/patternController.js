@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Pattern = require('../models/patterns');
+const Patterns = require('../models/patterns');
 
 router.get('/', async (req, res, next) => {
   try{
-    const allPatterns = await Pattern.find();
+    const allPatterns = await Patterns.find();
     res.json({
       status: 200,
       data: allPatterns
@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res) => {
   try{
-    const createdPattern = await Pattern.create(req.body);
+    const createdPattern = await Patterns.create(req.body);
     res.json({
       status: 200,
       data: createdPattern
@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res, next) => {
   try{
-    const foundPattern = await Pattern.findById(req.params.id);
+    const foundPattern = await Patterns.findById(req.params.id);
     res.json({
       status: 200,
       data: foundPattern
@@ -40,7 +40,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res) => {
   try{
-    const deletedPattern = await Pattern.findByIdAndRemove(req.params.id);
+    const deletedPattern = await Patterns.findByIdAndRemove(req.params.id);
     res.json({
       status: 200,
       data: deletedPattern

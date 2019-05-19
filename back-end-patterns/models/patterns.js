@@ -12,4 +12,4 @@ const patternSchema = new mongoose.Schema({
   commentary: String
 });
 
-module.exports = mongoose.model('Pattern', patternSchema);
+module.exports = mongoose.model('Patterns', patternSchema);
