@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import CreatePattern from './CreatePattern/CreatePattern';
+import PatternList from './PatternList/PatternList';
 
 class PatternContainer extends Component {
   constructor(){
@@ -39,10 +40,11 @@ class PatternContainer extends Component {
         }
       });
       const parsedResponse = await createdPattern.json();
-      console.log(parsedResponse);
+      console.log('this is the parsed response', parsedResponse);
       this.setState({
         patterns: [...this.state.patterns, parsedResponse.data]
       });
+      console.log(this.state.patterns);
     } catch(err) {
       console.log(err);
     }
@@ -54,6 +56,7 @@ class PatternContainer extends Component {
       <div>
         <h1>Patterns of Emphasis</h1>
         <CreatePattern addPattern={this.addPattern}/>
+        <PatternList patterns={this.state.patterns} />
       </div>
     )
   }

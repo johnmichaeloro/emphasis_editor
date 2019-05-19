@@ -23,23 +23,41 @@ class CreatePattern extends Component {
       <div>
         <form onSubmit={this.props.addPattern.bind(null, this.state)}>
           <h2>Add a pattern to the catalog</h2>
-          Title: <input type='text' name='title' onChange={this.updatePattern} placeholder='enter the title of the text' />
+          <label>
+            Title: <input type='text' name='title' onChange={this.updatePattern} />
+          </label>
           <br/>
-          Author: <input type='text' name='author' onChange={this.updatePattern} placeholder='enter the author of the text' />
+          <label>
+            Author: <input type='text' name='author' onChange={this.updatePattern} />
+          </label>
           <br/>
-          Publication: <input type='text' name='publication' onChange={this.updatePattern} placeholder='enter the publication' />
+          <label>
+            Publication: <input type='text' name='publication' onChange={this.updatePattern} />
+          </label>
           <br/>
-          Year: <input type='text' name='year' onChange={this.updatePattern} placeholder='enter the year of publication' />
+          <label>
+            Year: <input type='text' name='year' onChange={this.updatePattern} />
+          </label>
           <br/>
-          URL: <input type='text' name='url' onChange={this.updatePattern} placeholder='enter the author of the text' />
+          <label>
+            URL: <input type='text' name='url' onChange={this.updatePattern} />
+          </label>
           <br/>
-          Pattern: <input type='text' name='pattern' onChange={this.updatePattern} placeholder='enter the author of the text' />
+          <label>
+            Pattern: <input type='text' name='pattern' onChange={this.updatePattern} />
+          </label>
           <br/>
-          Description: <input name='description' onChange={this.updatePattern} placeholder='enter a description of the pattern' />
+          <label>
+            Description: <input name='description' onChange={this.updatePattern} />
+          </label>
           <br/>
-          Text: <input name='text' onChange={this.updatePattern} placeholder='enter the text' />
+          <label>
+            Text: <input name='text' onChange={this.updatePattern} />
+          </label>
           <br/>
-          Commentary: <input name='commentary' onChange={this.updatePattern} placeholder='enter commentary on the pattern' />
+          <label>
+            Commentary: <input name='commentary' onChange={this.updatePattern} />
+          </label>
           <br/>
           <input type='submit'/>
         </form>
