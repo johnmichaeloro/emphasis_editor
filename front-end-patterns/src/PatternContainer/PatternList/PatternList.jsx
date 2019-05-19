@@ -4,7 +4,9 @@ const PatternList = (props) => {
   const patternMapper = props.patterns.map((pattern) => {
     return(
       <li key={pattern._id}>
-        <span>{pattern.title}</span><br/>
+        <span>Title:{pattern.title}</span><br/>
+        <span>Author:{pattern.author}</span><br/>
+        <button onClick={props.deletePattern.bind(null, pattern._id)}>Delete</button>
       </li>
     )
   })

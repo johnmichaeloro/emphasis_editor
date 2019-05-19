@@ -49,14 +49,27 @@ class PatternContainer extends Component {
       console.log(err);
     }
   }
-
+  deletePattern = async (id, e) => {
+    console.log('this is the delete id ', id);
+    e.preventDefault();
+    try{
+      const deletePattern = await fetch('http://localhost:9000/api/v1/patterns/' + id, {
+        method: 'DELETE',
+        credentials: 'include'
+      });
+      const deletePatternJson = await deletePattern.json();
+      this.setState({patterns: this.state.patterns.filter((pattern, i) => pattern._id !== id)});
+    } catch(err) {
+      console.log(err, 'this was the delete error');
+    }
+  }
   render(){
     console.log(this.state.patterns);
     return(
       <div>
         <h1>Patterns of Emphasis</h1>
         <CreatePattern addPattern={this.addPattern}/>
-        <PatternList patterns={this.state.patterns} />
+        <PatternList patterns={this.state.patterns} deletePattern={this.deletePattern}/>
       </div>
     )
   }
