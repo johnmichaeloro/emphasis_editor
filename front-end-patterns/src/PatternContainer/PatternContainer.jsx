@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import CreatePattern from './CreatePattern/CreatePattern';
 import PatternList from './PatternList/PatternList';
+import PatternEditor from './PatternEditor/PatternEditor';
 
 class PatternContainer extends Component {
   constructor(){
@@ -18,7 +19,8 @@ class PatternContainer extends Component {
         description: '',
         text: '',
         commentary: ''
-      }
+      },
+      modalShowing: false,
     }
   }
   componentDidMount(){
@@ -75,6 +77,51 @@ class PatternContainer extends Component {
       console.log(err, 'this was the delete error');
     }
   }
+  editPattern = async (e) => {
+    e.preventDefault();
+    try{
+      const editResponse = await fetch('http://localhost:9000/api/va/patterns/' + this.state.patternToEdit._id, {
+        method: 'PUT',
+        credentials: 'include',
+        body: JSON.stringify(this.state.patternToEdit),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const parsedResponse = await editResponse.json();
+      const editedPatternArray = this.state.patterns.map((pattern) => {
+        if(pattern._id === this.state.patternToEdit._id){
+          pattern = parsedResponse.data
+        }
+        return pattern
+      });
+      this.setState({
+        patterns: editedPatternArray,
+        modalShowing: false
+      });
+    } catch(err) {
+      console.log(err);
+    }
+  }
+  handleFormChange = (e) => {
+    console.log('this is handleFormChange');
+    this.setState({
+      patternToEdit: {
+        ...this.state.patternToEdit,
+        [e.target.name]: e.target.value
+      }
+    })
+  }
+  showModal = (pattern) =>  {
+    console.log("this is show modal");
+    this.setState({
+      modalShowing: true,
+      patternToEdit: {
+        ...pattern
+      }
+    });
+    console.log(this.state.modalShowing);
+  }
   render(){
     console.log(this.state.patterns);
     return(
@@ -82,7 +129,8 @@ class PatternContainer extends Component {
         <h1>Patterns of Emphasis</h1>
         <h3>A catalog of patterns of sentence-level emphasis</h3>
         <CreatePattern addPattern={this.addPattern}/>
-        <PatternList patterns={this.state.patterns} deletePattern={this.deletePattern}/>
+        <PatternList patterns={this.state.patterns} showModal={this.showModal} deletePattern={this.deletePattern}/>
+        {this.state.modalShowing ? <PatternEditor patternToEdit={this.state.patternToEdit} editPattern={this.editPattern} handleFormChange={this.handleFormChange}/> : null}
       </div>
     )
   }
