@@ -47,7 +47,7 @@ class PatternContainer extends Component {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(pattern),
-        header: {
+        headers: {
           'Content-Type': 'application/json'
         }
       });

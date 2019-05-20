@@ -3,6 +3,7 @@ const router = express.Router();
 const Patterns = require('../models/patterns');
 
 router.get('/', async (req, res, next) => {
+  console.log('this is get all patterns');
   try{
     const allPatterns = await Patterns.find();
     res.json({
@@ -15,6 +16,7 @@ router.get('/', async (req, res, next) => {
 });
 
 router.post('/', async (req, res) => {
+  console.log(req.body, 'this is req.body');
   try{
     const createdPattern = await Patterns.create(req.body);
     res.json({
