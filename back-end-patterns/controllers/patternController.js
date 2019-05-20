@@ -39,6 +39,23 @@ router.get('/:id', async (req, res, next) => {
     res.send(err);
   }
 });
+router.use((req, res, next)=>{
+  console.log("here!!!");
+  console.log(req.method);
+  next();
+})
+router.put('/:id', async (req, res) => {
+  console.log('inside put route');
+  try{
+    const updatedPattern = await Patterns.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    res.json({
+      status: 200,
+      data: updatedPattern
+    });
+  } catch(err) {
+    res.send(err)
+  }
+});
 
 router.delete('/:id', async (req, res) => {
   try{

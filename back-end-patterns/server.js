@@ -28,9 +28,10 @@ const patternController = require('./controllers/patternController');
 app.use((req, res, next)=>{
   console.log("GOT HERE");
   console.log(req.body);
+  console.log(req.url);
   next();
 })
-app.use('/api/v1/patterns', patternController);
+app.use('/api/v1/patterns',patternController);
 
 app.listen(process.env.PORT || 9000, () => {
   console.log('listening on port 9000');
