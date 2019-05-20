@@ -6,7 +6,19 @@ class PatternContainer extends Component {
   constructor(){
     super();
     this.state = {
-      patterns: []
+      patterns: [],
+      patternToEdit: {
+        _id: null,
+        title: '',
+        author: '',
+        publication: '',
+        year: '',
+        url: '',
+        pattern: '',
+        description: '',
+        text: '',
+        commentary: ''
+      }
     }
   }
   componentDidMount(){
