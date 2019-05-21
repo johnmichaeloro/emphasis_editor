@@ -18,11 +18,22 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res) => {
   console.log(req.body, 'this is req.body');
   try{
+    //API call to Emphasis would go here.
+    //I would need to send req.body.text
+    //I would want to send the req.body.text to string parser first
+    // I would make API calls with each block of text
+    // When I receive the 
     const createdPattern = await Patterns.create(req.body);
     res.json({
       status: 200,
       data: createdPattern
     });
+    // You receive the text from the front end
+    // You send it to the Api and receive the data
+    // you use the data and text with Sentences.js to create an...
+    // array of sentences (that contain both color and text for the given sentence)
+    // You send that array to the front end and put it on the page in a series of spans...
+    // that have their color as a class name.
   } catch(err) {
     res.send(err);
   }
