@@ -57,10 +57,6 @@ class CreatePattern extends Component {
           </label>
           <br/>
           <label>
-            Data: <input type='text' name='data' onChange={this.updatePattern}/>
-          </label>
-          <br/>
-          <label>
             Commentary: <input name='commentary' onChange={this.updatePattern} />
           </label>
           <br/>

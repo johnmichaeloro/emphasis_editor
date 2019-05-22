@@ -25,8 +25,7 @@ class PatternContainer extends Component {
         url: '',
         pattern: '',
         description: '',
-        text: '',
-        data: '',
+        text: [],
         commentary: ''
       },
       modalShowing: false,
@@ -75,8 +74,10 @@ apiCall = async (array) => {
   			section.data = extractData(section);
   		})
   		const entryData = compileData(sectionsArray)
+      console.log('this is sectionsArray', sectionsArray);
 
-      const text = sentenceArrayMaker(sectionsArray)
+    //  const text = sentenceArrayMaker(sectionsArray)
+    // ^this line of code is what will allow the colors to be represented on the page
 
 
     const createdPattern = await fetch('http://localhost:9000/api/v1/patterns', {

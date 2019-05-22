@@ -9,8 +9,11 @@ const patternSchema = new Schema({
   url: String,
   pattern: String,
   description: String,
-  text: String,
-  data: String,
+  text: [{
+    text: String,
+    analysis: Schema.Types.Mixed,
+    data: Schema.Types.Mixed
+  }],
   commentary: String
 });
 
