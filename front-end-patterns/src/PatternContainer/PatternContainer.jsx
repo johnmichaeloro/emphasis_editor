@@ -1,7 +1,15 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 import CreatePattern from './CreatePattern/CreatePattern';
 import PatternList from './PatternList/PatternList';
 import PatternEditor from './PatternEditor/PatternEditor';
+
+import stringParser from './js/stringParser';
+import extractData from './js/extractData';
+import compileData from './js/compileData';
+import sentenceArrayMaker from './js/sentences';
+
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 class PatternContainer extends Component {
   constructor(){
@@ -42,23 +50,36 @@ class PatternContainer extends Component {
       console.log(err);
     }
   }
+
+apiCall = async (array) => {
+	for (let i = 0; i < array.length; i++) {
+		await axios
+			.post('https://cors-anywhere.herokuapp.com/https://emphasis.ai/api/analysis_1/', {
+				input: array[i].text
+			})
+			.then((analysis) => {
+				array[i].analysis = analysis.data;
+			})
+	}
+	return array
+}
+
   addPattern = async (pattern, e) => {
-    // I need to make the Emphasis API call before the server API call. I need to do this becuase I need to add the response from Emphasis to the req.body before it is transferred to the server. I need to change this.state.data, let's call it, according to the response from Emphasis. Then I need to send req.body to the server.
     e.preventDefault();
     console.log('this is the new entry ', pattern);
     console.log('this is pattern.data', pattern.data);
     try{
-      const emphasisCall = await fetch('https://cors-anywhere.herokuapp.com/https://emphasis.ai/api/analysis_1/', {
-        method: 'POST',
-        body: JSON.stringify(pattern.text),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      const parsedData = await emphasisCall.json();
-      console.log('this is the response from Emphasis', parsedData);
-      
-      const createdPattern = await fetch('http://localhost:9000/api/v1/patterns', {
+      let sectionsArray = stringParser(pattern.text);
+  		sectionsArray = await this.apiCall(sectionsArray);
+  		sectionsArray.forEach((section) => {
+  			section.data = extractData(section);
+  		})
+  		const entryData = compileData(sectionsArray)
+
+      const text = sentenceArrayMaker(sectionsArray)
+
+
+    const createdPattern = await fetch('http://localhost:9000/api/v1/patterns', {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(pattern),
