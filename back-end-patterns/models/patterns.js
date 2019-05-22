@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const patternSchema = new mongoose.Schema({
+const patternSchema = new Schema({
   title: String,
   author: String,
   publication: String,
@@ -9,6 +10,7 @@ const patternSchema = new mongoose.Schema({
   pattern: String,
   description: String,
   text: String,
+  data: String,
   commentary: String
 });
 

@@ -16,6 +16,7 @@ class CreatePattern extends Component {
     }
   }
   updatePattern = (e) => {
+    console.log(e.currentTarget.value);
     this.setState({[e.currentTarget.name]: e.currentTarget.value})
   }
   render(){
@@ -48,11 +49,15 @@ class CreatePattern extends Component {
           </label>
           <br/>
           <label>
-            Description: <input name='description' onChange={this.updatePattern} />
+            Description: <input type='text' name='description' onChange={this.updatePattern} />
           </label>
           <br/>
           <label>
-            Text: <input name='text' onChange={this.updatePattern} />
+            Text: <input type="text" name='text' onChange={this.updatePattern} />
+          </label>
+          <br/>
+          <label>
+            Data: <input type='text' name='data' onChange={this.updatePattern}/>
           </label>
           <br/>
           <label>

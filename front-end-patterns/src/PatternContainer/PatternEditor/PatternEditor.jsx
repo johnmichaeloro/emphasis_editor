@@ -38,6 +38,10 @@ const PatternEditor = (props) => {
         </label>
         <br/>
         <label>
+          Edit Data: <input name='data' onChange={props.handleFormChange} value={props.patternToEdit.data} />
+        </label>
+        <br/>
+        <label>
           Edit Commentary: <input name='commentary' onChange={props.handleFormChange} value={props.patternToEdit.commentary} />
         </label>
         <br/>
