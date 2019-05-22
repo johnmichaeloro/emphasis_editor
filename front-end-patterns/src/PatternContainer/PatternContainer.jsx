@@ -25,7 +25,11 @@ class PatternContainer extends Component {
         url: '',
         pattern: '',
         description: '',
-        text: [],
+        text: [{
+          text: '',
+          analysis: null,
+          data: null
+        }],
         commentary: ''
       },
       modalShowing: false,
@@ -66,7 +70,7 @@ apiCall = async (array) => {
   addPattern = async (pattern, e) => {
     e.preventDefault();
     console.log('this is the new entry ', pattern);
-    console.log('this is pattern.data', pattern.data);
+    console.log('this is pattern.text', pattern.text);
     try{
       let sectionsArray = stringParser(pattern.text);
   		sectionsArray = await this.apiCall(sectionsArray);
@@ -75,7 +79,10 @@ apiCall = async (array) => {
   		})
   		const entryData = compileData(sectionsArray)
       console.log('this is sectionsArray', sectionsArray);
-
+      this.setState({
+        text: sectionsArray
+        //I need to set the state of text here with the sectionsArray
+      })
     //  const text = sentenceArrayMaker(sectionsArray)
     // ^this line of code is what will allow the colors to be represented on the page
 

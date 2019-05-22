@@ -34,7 +34,7 @@ const PatternEditor = (props) => {
         </label>
         <br/>
         <label>
-          Edit Text: <input name='text' onChange={props.handleFormChange} value={props.patternToEdit.text} />
+          Edit Text: <input name='text.text' onChange={props.handleFormChange} value={props.patternToEdit.text} />
         </label>
         <br/>
         <label>

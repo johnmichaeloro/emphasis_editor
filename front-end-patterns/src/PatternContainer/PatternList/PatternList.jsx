@@ -1,6 +1,7 @@
 import React from 'react';
 
 const PatternList = (props) => {
+  console.log(props.patterns);
   const patternMapper = props.patterns.map((pattern) => {
     return(
       <li key={pattern._id}>
@@ -11,7 +12,7 @@ const PatternList = (props) => {
         <span>URL:{pattern.url}</span><br/>
         <span>Pattern:{pattern.pattern}</span><br/>
         <span>Description:{pattern.description}</span><br/>
-        <span>Text:{pattern.text}</span><br/>
+        <span>Text:{pattern.text.text}</span><br/>
         <span>Commentary:{pattern.commentary}</span><br/>
         <button onClick={props.deletePattern.bind(null, pattern._id)}>Delete</button>
         <button onClick={props.showModal.bind(null, pattern)}>Edit</button>

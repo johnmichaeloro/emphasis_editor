@@ -11,7 +11,11 @@ class CreatePattern extends Component {
       url: '',
       pattern: '',
       description: '',
-      text: '',
+      text: [{
+        text: '',
+        analysis: null,
+        data: null
+      }],
       commentary: ''
     }
   }
