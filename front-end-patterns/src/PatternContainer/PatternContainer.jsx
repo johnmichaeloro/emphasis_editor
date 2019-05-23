@@ -152,6 +152,14 @@ apiCall = async (array) => {
       }
     })
   }
+  /**
+  textReveal = this.patternToEdit.text.map((reveal) => {
+    console.log(reveal.text);
+    this.setState({
+      patternToEdit.text.text = reveal.text
+    })
+  })
+  **/
   showModal = (pattern) =>  {
     console.log("this is show modal");
     this.setState({
