@@ -97,7 +97,9 @@ apiCall = async (array) => {
       const parsedResponse = await createdPattern.json();
       console.log('this is the parsed response', parsedResponse);
       this.setState({
-        patterns: [...this.state.patterns, parsedResponse.data]
+        patterns: [...this.state.patterns, parsedResponse.data],
+        createShowing: false,
+        listShowing: true,
       });
       console.log(this.state.patterns);
     } catch(err) {
@@ -153,7 +155,8 @@ apiCall = async (array) => {
       });
       this.setState({
         patterns: editedPatternArray,
-        modalShowing: false
+        modalShowing: false,
+        listShowing: true,
       });
     } catch(err) {
       console.log(err);
