@@ -32,6 +32,8 @@ class PatternContainer extends Component {
         commentary: ''
       },
       modalShowing: false,
+      createShowing: false,
+      listShowing: true,
     }
   }
   componentDidMount(){
@@ -170,20 +172,29 @@ apiCall = async (array) => {
   showModal = (pattern) =>  {
     console.log("this is show modal");
     this.setState({
+      createShowing: false,
+      listShowing: false,
       modalShowing: true,
       patternToEdit: pattern
     }, () => console.log(this.state.modalShowing));
-
+  }
+  showCreate = () => {
+    console.log('this is show create');
+    this.setState({
+      createShowing: true,
+      listShowing: false,
+    })
   }
   render(){
     console.log('this is this.state.patterns in PatternContainer', this.state.patterns);
     console.log(this.state);
     return(
       <div>
-        <h1>Patterns of Emphasis</h1>
-        <h3>A catalog of patterns of sentence-level emphasis</h3>
-        <CreatePattern addPattern={this.addPattern}/>
-        <PatternList patterns={this.state.patterns} showModal={this.showModal} deletePattern={this.deletePattern}/>
+        <h1>Pattern Dictionary</h1>
+        <p><i>A collection of patterns of sentence-level emphasis with examples and descriptions created using <a href='http://emphasis.ai'>emphasis.ai</a></i>.</p>
+        <button onClick={this.showCreate}>Create a Pattern</button>
+        {this.state.createShowing ? <CreatePattern addPattern={this.addPattern}/> : null}
+        {this.state.listShowing ? <PatternList patterns={this.state.patterns} showModal={this.showModal} deletePattern={this.deletePattern}/> : null}
         {this.state.modalShowing ? <PatternEditor patternToEdit={this.state.patternToEdit} editPattern={this.editPattern} handleFormChange={this.handleFormChange} /> : null}
       </div>
     )

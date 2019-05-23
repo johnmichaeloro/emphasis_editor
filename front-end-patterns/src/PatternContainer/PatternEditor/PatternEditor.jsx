@@ -5,7 +5,7 @@ const PatternEditor = (props) => {
   return(
     <div>
       <form onSubmit={props.editPattern}>
-        <h2>Add a pattern to the catalog</h2>
+        <h2>Edit a Pattern</h2>
         <label>
           Edit Title: <input type='text' name='title' onChange={props.handleFormChange} value={props.patternToEdit.title} />
         </label>
