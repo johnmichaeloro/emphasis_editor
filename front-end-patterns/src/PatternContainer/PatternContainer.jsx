@@ -118,8 +118,21 @@ apiCall = async (array) => {
   }
   editPattern = async (e) => {
     e.preventDefault();
-    //I probably need to make a call to Emphasis here.
+    console.log('this is state.patternToEdit', this.state.patternToEdit);
     try{
+      let sectionsArray = stringParser(this.state.patternToEdit.text);
+  		sectionsArray = await this.apiCall(sectionsArray);
+  		sectionsArray.forEach((section) => {
+  			section.data = extractData(section);
+  		})
+  		const entryData = compileData(sectionsArray)
+      console.log('this is sectionsArray', sectionsArray);
+      this.state.patternToEdit.text = sectionsArray;
+
+
+    //  const text = sentenceArrayMaker(sectionsArray)
+    // ^this line of code is what will allow the colors to be represented on the page
+
       const editResponse = await fetch('http://localhost:9000/api/v1/patterns/' + this.state.patternToEdit._id, {
         method: 'PUT',
         credentials: 'include',
