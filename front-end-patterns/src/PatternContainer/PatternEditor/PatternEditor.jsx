@@ -1,8 +1,13 @@
 import React from 'react';
 
 const PatternEditor = (props) => {
-  console.log(props.patternToEdit.text);
-  //I need to map the text object to return the string
+  console.log('this is props.patternToEdit.text in PatternEditor', props.patternToEdit.text);
+  //I need to create a new handleChange function for the text area. It may contain another mapper. It allows props.patternToEdit.text to be mapped. The first object within the array is selected. An e is a paramter, if possible. props.handleFormChange is called.
+  const textReveal = props.patternToEdit.text.map((reveal) => {
+    console.log(reveal.text);
+    const revealedText = reveal.text;
+    return revealedText
+  });
   return(
     <div>
       <form onSubmit={props.editPattern}>
@@ -36,7 +41,7 @@ const PatternEditor = (props) => {
         </label>
         <br/>
         <label>
-          Edit Text: <input name='text' onChange={props.handleFormChange} value={props.patternToEdit.text.text} />
+          Edit Text: <input name='text' onChange={props.handleFormChange} value={textReveal} />
         </label>
         <br/>
         <label>

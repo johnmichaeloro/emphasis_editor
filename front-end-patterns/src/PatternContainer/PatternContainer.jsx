@@ -118,6 +118,7 @@ apiCall = async (array) => {
   }
   editPattern = async (e) => {
     e.preventDefault();
+    //I probably need to make a call to Emphasis here.
     try{
       const editResponse = await fetch('http://localhost:9000/api/v1/patterns/' + this.state.patternToEdit._id, {
         method: 'PUT',
@@ -152,14 +153,6 @@ apiCall = async (array) => {
       }
     })
   }
-  /**
-  textReveal = this.patternToEdit.text.map((reveal) => {
-    console.log(reveal.text);
-    this.setState({
-      patternToEdit.text.text = reveal.text
-    })
-  })
-  **/
   showModal = (pattern) =>  {
     console.log("this is show modal");
     this.setState({
