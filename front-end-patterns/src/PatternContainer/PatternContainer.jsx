@@ -7,7 +7,6 @@ import PatternEditor from './PatternEditor/PatternEditor';
 import stringParser from './js/stringParser';
 import extractData from './js/extractData';
 import compileData from './js/compileData';
-import sentenceArrayMaker from './js/sentences';
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
@@ -79,14 +78,12 @@ apiCall = async (array) => {
   		})
   		const entryData = compileData(sectionsArray)
       console.log('this is sectionsArray', sectionsArray);
-      this.setState({
-        text: sectionsArray
-        //I need to set the state of text here with the sectionsArray
-      })
+      pattern.text = sectionsArray
+      console.log('this is pattern.text[0].text after sectionsArray', pattern.text[0].text);
     //  const text = sentenceArrayMaker(sectionsArray)
     // ^this line of code is what will allow the colors to be represented on the page
 
-
+    console.log('this is pattern after Emphasis API', pattern);
     const createdPattern = await fetch('http://localhost:9000/api/v1/patterns', {
         method: 'POST',
         credentials: 'include',
@@ -164,7 +161,7 @@ apiCall = async (array) => {
 
   }
   render(){
-    console.log(this.state.patterns);
+    console.log('this is this.state.patterns in PatternContainer', this.state.patterns);
     console.log(this.state);
     return(
       <div>
