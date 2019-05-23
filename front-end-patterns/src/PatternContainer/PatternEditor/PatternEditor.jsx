@@ -1,6 +1,14 @@
 import React from 'react';
 
 const PatternEditor = (props) => {
+  console.log(props.patternToEdit.text);
+  //I need to map the text object to return the string
+  const textReveal = props.patternToEdit.text.map((reveal) => {
+    console.log(reveal.text);
+    return(
+      <input name='text' onChange={props.handleFormChange} value={reveal.text} />
+    )
+  })
   return(
     <div>
       <form onSubmit={props.editPattern}>
@@ -34,7 +42,7 @@ const PatternEditor = (props) => {
         </label>
         <br/>
         <label>
-          Edit Text: <input name='text.text' onChange={props.handleFormChange} value={props.patternToEdit.text} />
+          Edit Text: {textReveal} //I need to allow changes to occur without crashes
         </label>
         <br/>
         <label>
