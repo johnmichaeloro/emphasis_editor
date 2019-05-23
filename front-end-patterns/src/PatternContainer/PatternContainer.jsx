@@ -146,6 +146,7 @@ apiCall = async (array) => {
   }
   handleFormChange = (e) => {
     console.log('this is handleFormChange');
+    //can I do an if check here to see if the value is {revealedText}?
     this.setState({
       patternToEdit: {
         ...this.state.patternToEdit,
@@ -170,7 +171,7 @@ apiCall = async (array) => {
         <h3>A catalog of patterns of sentence-level emphasis</h3>
         <CreatePattern addPattern={this.addPattern}/>
         <PatternList patterns={this.state.patterns} showModal={this.showModal} deletePattern={this.deletePattern}/>
-        {this.state.modalShowing ? <PatternEditor patternToEdit={this.state.patternToEdit} editPattern={this.editPattern} handleFormChange={this.handleFormChange}/> : null}
+        {this.state.modalShowing ? <PatternEditor patternToEdit={this.state.patternToEdit} editPattern={this.editPattern} handleFormChange={this.handleFormChange} /> : null}
       </div>
     )
   }
