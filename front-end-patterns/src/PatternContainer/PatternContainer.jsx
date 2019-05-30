@@ -123,44 +123,76 @@ apiCall = async (array) => {
   editPattern = async (e) => {
     e.preventDefault();
     console.log('this is state.patternToEdit', this.state.patternToEdit);
-    try{
-      let sectionsArray = stringParser(this.state.patternToEdit.text);
-  		sectionsArray = await this.apiCall(sectionsArray);
-  		sectionsArray.forEach((section) => {
-  			section.data = extractData(section);
-  		})
-  		const entryData = compileData(sectionsArray)
-      console.log('this is sectionsArray', sectionsArray);
-      this.state.patternToEdit.text = sectionsArray;
+    console.log("***This is the text to be UPDATED***", this.state.patternToEdit.text.text);
+    //I need to add an if check that says that if the text to be updated is an empty string, we just do the basic fetch request; if not, we do the emphasis call.
+    //But that's not going to help because text will still be empty. But it's working for everything else. Let's try this approach.
+    if(this.state.patternToEdit.text.text !== undefined) {
+      try{
+        let sectionsArray = stringParser(this.state.patternToEdit.text);
+    		sectionsArray = await this.apiCall(sectionsArray);
+    		sectionsArray.forEach((section) => {
+    			section.data = extractData(section);
+    		})
+    		const entryData = compileData(sectionsArray)
+        console.log('this is sectionsArray', sectionsArray);
+        this.state.patternToEdit.text = sectionsArray;
 
 
-    //  const text = sentenceArrayMaker(sectionsArray)
-    // ^this line of code is what will allow the colors to be represented on the page
+      //  const text = sentenceArrayMaker(sectionsArray)
+      // ^this line of code is what will allow the colors to be represented on the page
 
-      const editResponse = await fetch('http://localhost:9000/api/v1/patterns/' + this.state.patternToEdit._id, {
-        method: 'PUT',
-        credentials: 'include',
-        body: JSON.stringify(this.state.patternToEdit),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      console.log(editResponse);
-      const parsedResponse = await editResponse.json();
-      const editedPatternArray = this.state.patterns.map((pattern) => {
-        if(pattern._id === this.state.patternToEdit._id){
-          pattern = parsedResponse.data
-        }
-        return pattern
-      });
-      this.setState({
-        patterns: editedPatternArray,
-        modalShowing: false,
-        listShowing: true,
-      });
-    } catch(err) {
-      console.log(err);
+        const editResponse = await fetch('http://localhost:9000/api/v1/patterns/' + this.state.patternToEdit._id, {
+          method: 'PUT',
+          credentials: 'include',
+          body: JSON.stringify(this.state.patternToEdit),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        console.log(editResponse);
+        const parsedResponse = await editResponse.json();
+        const editedPatternArray = this.state.patterns.map((pattern) => {
+          if(pattern._id === this.state.patternToEdit._id){
+            pattern = parsedResponse.data
+          }
+          return pattern
+        });
+        this.setState({
+          patterns: editedPatternArray,
+          modalShowing: false,
+          listShowing: true,
+        });
+      } catch(err) {
+        console.log(err);
+      }
+    } else {
+      try{
+        const editResponse = await fetch('http://localhost:9000/api/v1/patterns/' + this.state.patternToEdit._id, {
+          method: 'PUT',
+          credentials: 'include',
+          body: JSON.stringify(this.state.patternToEdit),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        console.log(editResponse);
+        const parsedResponse = await editResponse.json();
+        const editedPatternArray = this.state.patterns.map((pattern) => {
+          if(pattern._id === this.state.patternToEdit._id){
+            pattern = parsedResponse.data
+          }
+          return pattern
+        });
+        this.setState({
+          patterns: editedPatternArray,
+          modalShowing: false,
+          listShowing: true,
+        });
+      } catch(err) {
+        console.log(err);
+      }  
     }
+
   }
   handleFormChange = (e) => {
     console.log('this is handleFormChange');
