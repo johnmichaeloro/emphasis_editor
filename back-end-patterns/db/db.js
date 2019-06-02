@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/patterns', {
+mongoose.connect('mongodb://localhost/patterns2', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false

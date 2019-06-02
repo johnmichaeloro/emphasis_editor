@@ -14,13 +14,17 @@ router.post('/login', async (req, res) => {
         console.log('failed to login');
         res.send('login failed');
       } else {
-        console.log('this is the foundUser in bcrypt', foundUser);
+        console.log('this is the foundUser', foundUser);
         console.log('Comparing bcrypt password hash.');
-        console.log('passwords match');
-        res.json({
-          status: 200,
-          data: 'login successful'
-        });
+        if(bcrypt.compareSync(req.body.password, foundUser.password)){
+          console.log('passwords match');
+          res.json({
+            status: 200,
+            data: 'login successful'
+          });
+        } else{
+          console.log(err);
+        }
       }
     });
   } catch(err) {
@@ -30,8 +34,15 @@ router.post('/login', async (req, res) => {
 
 router.post('/register', async (req, res) => {
   console.log(req.body, 'this is the user session upon registration');
+  const password = req.body.password;
+  const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+  const newUser = {
+    username: req.body.username,
+    email: req.body.email,
+    password: passwordHash,
+  };
   try{
-    const user = await User.create(req.body);
+    const user = await User.create(newUser);
     req.session.logged = true;
     req.session.username = req.body.username;
     res.json({

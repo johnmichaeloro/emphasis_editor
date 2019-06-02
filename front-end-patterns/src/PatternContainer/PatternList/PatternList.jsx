@@ -43,7 +43,7 @@ const PatternList = (props) => {
         <span>URL:{pattern.url}</span><br/>
         <span>Pattern:{pattern.pattern}</span><br/>
         <span>Description:{pattern.description}</span><br/>
-        <span>{sentenceColorer}</span><br/>
+        <span>Text:{sentenceColorer}</span><br/>
         <span>Commentary:{pattern.commentary}</span><br/>
         <button onClick={props.deletePattern.bind(null, pattern._id)}>Delete</button>
         <button onClick={props.showModal.bind(null, pattern)}>Edit</button>
