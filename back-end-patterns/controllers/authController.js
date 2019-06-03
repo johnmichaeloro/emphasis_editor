@@ -32,6 +32,16 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.get('/logout', async (req, res) => {
+  req.session.logged = false;
+  req.session.destroy();
+  console.log('session destroyed, user logged out');
+  res.send({
+    status: 201,
+    data: 'user logged out'
+  })
+});
+
 router.post('/register', async (req, res) => {
   console.log(req.body, 'this is the user session upon registration');
   const password = req.body.password;

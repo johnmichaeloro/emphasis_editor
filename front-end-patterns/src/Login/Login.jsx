@@ -34,6 +34,22 @@ class Login extends React.Component {
         console.log(err);
     }
   }
+  handleLogout = async (e) => {
+    e.preventDefault();
+    console.log('You are logged out.');
+    try{
+      const logoutResponse = await fetch('http://localhost:9000/auth/logout', {
+        method: 'GET',
+        credentials: 'include'
+      });
+      const parsedResponse = await logoutResponse.json();
+      if(parsedResponse.data === 'user logged out'){
+        console.log('logout successful');
+      }
+    } catch(err){
+      console.log(err);
+    }
+  }
   render(){
     return(
       <div>
@@ -42,6 +58,7 @@ class Login extends React.Component {
           Password: <input type='password' name='password' onChange={this.handleChange} />
           <input type='submit' />
         </form>
+        <button onClick={this.handleLogout}>Logout</button>
       </div>
     )
   }
