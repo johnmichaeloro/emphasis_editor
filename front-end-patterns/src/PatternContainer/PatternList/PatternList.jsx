@@ -41,7 +41,7 @@ const PatternList = (props) => {
         <span>Publication:{pattern.publication}</span><br/>
         <span>Year:{pattern.publication}</span><br/>
         <span>URL:{pattern.url}</span><br/>
-        <span>Pattern:{pattern.pattern}</span><br/>
+        <span>Pattern Type:<select></select></span><br/>
         <span>Description:{pattern.description}</span><br/>
         <span>Text:{sentenceColorer}</span><br/>
         <span>Commentary:{pattern.commentary}</span><br/>

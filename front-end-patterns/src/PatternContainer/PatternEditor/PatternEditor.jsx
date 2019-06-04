@@ -27,7 +27,7 @@ const PatternEditor = (props) => {
         </label>
         <br/>
         <label>
-          Edit Pattern: <input type='text' name='pattern' onChange={props.handleFormChange} value={props.patternToEdit.pattern} />
+          Edit Pattern Type: <select name='patternType' value={props.patternToEdit.patternType}></select>
         </label>
         <br/>
         <label>

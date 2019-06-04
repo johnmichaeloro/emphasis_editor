@@ -9,7 +9,7 @@ class CreatePattern extends Component {
       publication: '',
       year: '',
       url: '',
-      pattern: '',
+      patternType: null,
       description: '',
       text: [{
         text: '',
@@ -49,7 +49,7 @@ class CreatePattern extends Component {
           </label>
           <br/>
           <label>
-            Pattern: <input type='text' name='pattern' onChange={this.updatePattern} />
+            Pattern Type: <select name='patternType'></select>
           </label>
           <br/>
           <label>
