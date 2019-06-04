@@ -1,23 +1,23 @@
 const mongoose = require('mongoose');
-const PatternType = require('./patternTypes');
+const PatternType = require('./patternType');
 const User = require('./user');
 const Schema = mongoose.Schema;
 
 
 const patternSchema = new Schema({
-  user_id: [{
+  user: {
     type: Schema.Types.ObjectId,
     ref: 'User'
-  }],
+  },
   title: {type: String, required: true},
-  author: {type: String. required: true},
+  author: {type: String, required: true},
   publication: {type: String, required: true},
   year: {type: Number, required: true},
   url: String,
-  pattern: [{
+  patternType: {
     type: Schema.Types.ObjectId,
     ref: 'PatternType'
-  }],
+  },
   text: [{
     text: {type: String, required: true},
     analysis: Schema.Types.Mixed,
@@ -26,4 +26,4 @@ const patternSchema = new Schema({
   commentary: {type: String, required: true}
 });
 
-module.exports = mongoose.model('Patterns', patternSchema);
+module.exports = mongoose.model('Pattern', patternSchema);

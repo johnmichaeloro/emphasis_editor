@@ -17,12 +17,13 @@ class PatternContainer extends Component {
       patterns: [],
       patternToEdit: {
         _id: null,
+        user: null,
         title: '',
         author: '',
         publication: '',
         year: '',
         url: '',
-        pattern: '',
+        patternType: null,
         description: '',
         text: [{
           text: '',
@@ -190,7 +191,7 @@ apiCall = async (array) => {
         });
       } catch(err) {
         console.log(err);
-      }  
+      }
     }
 
   }
