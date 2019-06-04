@@ -1,20 +1,29 @@
 const mongoose = require('mongoose');
+const PatternType = require('./patternTypes');
+const User = require('./user');
 const Schema = mongoose.Schema;
 
+
 const patternSchema = new Schema({
-  title: String,
-  author: String,
-  publication: String,
-  year: String,
+  user_id: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  title: {type: String, required: true},
+  author: {type: String. required: true},
+  publication: {type: String, required: true},
+  year: {type: Number, required: true},
   url: String,
-  pattern: String,
-  description: String,
+  pattern: [{
+    type: Schema.Types.ObjectId,
+    ref: 'PatternType'
+  }],
   text: [{
-    text: String,
+    text: {type: String, required: true},
     analysis: Schema.Types.Mixed,
     data: Schema.Types.Mixed
   }],
-  commentary: String
+  commentary: {type: String, required: true}
 });
 
 module.exports = mongoose.model('Patterns', patternSchema);
