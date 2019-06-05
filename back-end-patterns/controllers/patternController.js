@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Pattern = require('../models/pattern');
 const PatternType = require('../models/patternType');
+const User = require('../models/user');
 
 router.get('/', async (req, res, next) => {
   console.log('this is get all patterns');

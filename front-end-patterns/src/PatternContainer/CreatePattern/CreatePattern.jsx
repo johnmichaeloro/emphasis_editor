@@ -23,6 +23,11 @@ class CreatePattern extends Component {
     console.log(e.currentTarget.value);
     this.setState({[e.currentTarget.name]: e.currentTarget.value})
   }
+  //Here I need a function that renders all of the patternType.patternType as options in a drop down menu.
+  //When the user selects an option, the objectId of that option becomes the value of state's patternType property.
+  //The description associated with that objectId becomes the value of state's description property.
+  //If add new is selected, Pattern Type becomes a text input and do does Description.
+  //The user can add a new pattern type and a new description and have them pushed to MongoDB.
   render(){
     return(
       <div>

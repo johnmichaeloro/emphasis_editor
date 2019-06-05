@@ -14,6 +14,7 @@ class PatternContainer extends Component {
   constructor(){
     super();
     this.state = {
+      patternTypes: [],
       patterns: [],
       patternToEdit: {
         _id: null,
@@ -38,6 +39,7 @@ class PatternContainer extends Component {
     }
   }
   componentDidMount(){
+      this.getPatternTypes();
       this.getPatterns();
   }
   getPatterns = async () => {
@@ -55,6 +57,25 @@ class PatternContainer extends Component {
       console.log(err);
     }
   }
+
+getPatternTypes = async () => {
+  console.log('getting patternTypes');
+  try {
+    const response = await fetch('http://localhost:9000/api/v1/types', {
+      credentials: 'include'
+    });
+    if(response.status !== 200){
+      throw Error(response.statusText);
+    }
+    const typesParsed = await response.json();
+    this.setState({
+      patternTypes: typesParsed.data
+    })
+  } catch(err){
+    console.log(err);
+  }
+}
+
 
 apiCall = async (array) => {
 	for (let i = 0; i < array.length; i++) {
@@ -222,6 +243,7 @@ apiCall = async (array) => {
     })
   }
   render(){
+    console.log('this is state.patternTypes', this.state.patternTypes);
     console.log('this is this.state.patterns in PatternContainer', this.state.patterns);
     console.log(this.state);
     return(

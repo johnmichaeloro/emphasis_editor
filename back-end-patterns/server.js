@@ -25,9 +25,11 @@ app.use(cors(corsOptions));
 
 const patternController = require('./controllers/patternController');
 const authController = require('./controllers/authController');
+const typeController = require('./controllers/typeController');
 
 app.use('/api/v1/patterns',patternController);
 app.use('/auth',authController);
+app.use('/api/v1/types',typeController);
 
 app.listen(process.env.PORT || 9000, () => {
   console.log('listening on port 9000');

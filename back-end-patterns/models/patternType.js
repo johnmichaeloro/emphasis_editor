@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Pattern = require('./pattern');
 
 const TypeSchema = new Schema({
-  _id: Schema.Types.ObjectId,
-  patternType: {type: String},
-  description: {type: String}
+  patterns: {
+    type: [Schema.Types.ObjectId],
+    ref: 'Pattern'
+  },
+  patternType: {type: String, required: true, unique: true},
+  description: {type: String, required: true, unique: true}
 });
 
 module.exports = mongoose.model('PatternType', TypeSchema);
