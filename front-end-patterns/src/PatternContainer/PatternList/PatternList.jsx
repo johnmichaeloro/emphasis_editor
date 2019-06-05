@@ -4,6 +4,7 @@ import sentenceArrayMaker from '../js/sentences';
 const PatternList = (props) => {
   console.log('this is props.patterns in PatternList', props.patterns);
   const patternMapper = props.patterns.map((pattern) => {
+    console.log(pattern, 'this is the pattern in the patternMapper');
     const textMapper = sentenceArrayMaker(pattern.text)
     console.log('this is the textMapper', textMapper);
     const sentenceColorer = textMapper.map((map) => {
@@ -41,8 +42,8 @@ const PatternList = (props) => {
         <span>Publication:{pattern.publication}</span><br/>
         <span>Year:{pattern.publication}</span><br/>
         <span>URL:{pattern.url}</span><br/>
-        <span>Pattern Type:<select></select></span><br/>
-        <span>Description:{pattern.description}</span><br/>
+        <span>Pattern Type:{pattern.patternType.patternType}</span><br/>
+        <span>Description:{pattern.patternType.description}</span><br/>
         <span>Text:{sentenceColorer}</span><br/>
         <span>Commentary:{pattern.commentary}</span><br/>
         <button onClick={props.deletePattern.bind(null, pattern._id)}>Delete</button>

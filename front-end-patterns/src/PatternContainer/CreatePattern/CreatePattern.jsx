@@ -34,7 +34,6 @@ class CreatePattern extends Component {
   })
 
   render(){
-    console.log(this.componentDidUpdate);
     const descriptionMapper = this.props.patternTypes.map((patternType) => {
       if(patternType._id === this.state.patternType){
         return patternType.description;
