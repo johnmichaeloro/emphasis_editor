@@ -1,5 +1,5 @@
 // THIS WILL RETURN THE FINAL DATA OBJECT COMPILES FROM ALL OF THE SECTIONS
-"use strict";
+
 
 class EntryData {
   constructor(num1,num2,num3,num4,num5,num6,num7,num8,num9,num10){

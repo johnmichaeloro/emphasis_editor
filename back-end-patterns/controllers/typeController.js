@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
   console.log(req.body, 'this is req.body');
   try{
     const createdType = await PatternType.create(req.body);
-    const populatedType = await PatternType.findById(req.params.id).populate('pattern');
+    const populatedType = await PatternType.findById(createdType).populate('pattern');
     res.json({
       status: 200,
       data: createdType, populatedType

@@ -1,5 +1,5 @@
 // THIS WILL CREATE A BASIC DATA OBJECT FOR EACH SECTION
-"use strict";
+
 
 class SectionData {
   constructor(num1,num2,num3,num4,num5){

@@ -3,6 +3,7 @@ import axios from 'axios';
 import CreatePattern from './CreatePattern/CreatePattern';
 import PatternList from './PatternList/PatternList';
 import PatternEditor from './PatternEditor/PatternEditor';
+import TypeList from './TypeList/TypeList';
 
 import stringParser from './js/stringParser';
 import extractData from './js/extractData';
@@ -251,9 +252,9 @@ apiCall = async (array) => {
         <h1>Pattern Dictionary</h1>
         <p><i>A collection of patterns of sentence-level emphasis with examples and descriptions created using <a href='http://emphasis.ai'>emphasis.ai</a></i>.</p>
         <button onClick={this.showCreate}>Create a Pattern</button>
-        {this.state.createShowing ? <CreatePattern addPattern={this.addPattern}/> : null}
-        {this.state.listShowing ? <PatternList patterns={this.state.patterns} showModal={this.showModal} deletePattern={this.deletePattern}/> : null}
-        {this.state.modalShowing ? <PatternEditor patternToEdit={this.state.patternToEdit} editPattern={this.editPattern} handleFormChange={this.handleFormChange} /> : null}
+        {this.state.createShowing ? <CreatePattern patternTypes={this.state.patternTypes} addPattern={this.addPattern}/> : null}
+        {this.state.listShowing ? <div><TypeList patternTypes={this.state.patternTypes} /> <PatternList patterns={this.state.patterns} showModal={this.showModal} deletePattern={this.deletePattern}/></div> : null}
+        {this.state.modalShowing ? <PatternEditor patternToEdit={this.state.patternToEdit} patternTypes={this.state.patternTypes} editPattern={this.editPattern} handleFormChange={this.handleFormChange} /> : null}
       </div>
     )
   }
