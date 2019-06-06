@@ -3,6 +3,7 @@ import axios from 'axios';
 import CreatePattern from './CreatePattern/CreatePattern';
 import PatternList from './PatternList/PatternList';
 import PatternEditor from './PatternEditor/PatternEditor';
+import TypeList from './TypeList/TypeList';
 
 import stringParser from './js/stringParser';
 import extractData from './js/extractData';
@@ -14,15 +15,17 @@ class PatternContainer extends Component {
   constructor(){
     super();
     this.state = {
+      patternTypes: [],
       patterns: [],
       patternToEdit: {
         _id: null,
+        user: null,
         title: '',
         author: '',
         publication: '',
         year: '',
         url: '',
-        pattern: '',
+        patternType: null,
         description: '',
         text: [{
           text: '',
@@ -37,6 +40,7 @@ class PatternContainer extends Component {
     }
   }
   componentDidMount(){
+      this.getPatternTypes();
       this.getPatterns();
   }
   getPatterns = async () => {
@@ -54,6 +58,25 @@ class PatternContainer extends Component {
       console.log(err);
     }
   }
+
+getPatternTypes = async () => {
+  console.log('getting patternTypes');
+  try {
+    const response = await fetch('http://localhost:9000/api/v1/types', {
+      credentials: 'include'
+    });
+    if(response.status !== 200){
+      throw Error(response.statusText);
+    }
+    const typesParsed = await response.json();
+    this.setState({
+      patternTypes: typesParsed.data
+    })
+  } catch(err){
+    console.log(err);
+  }
+}
+
 
 apiCall = async (array) => {
 	for (let i = 0; i < array.length; i++) {
@@ -123,44 +146,76 @@ apiCall = async (array) => {
   editPattern = async (e) => {
     e.preventDefault();
     console.log('this is state.patternToEdit', this.state.patternToEdit);
-    try{
-      let sectionsArray = stringParser(this.state.patternToEdit.text);
-  		sectionsArray = await this.apiCall(sectionsArray);
-  		sectionsArray.forEach((section) => {
-  			section.data = extractData(section);
-  		})
-  		const entryData = compileData(sectionsArray)
-      console.log('this is sectionsArray', sectionsArray);
-      this.state.patternToEdit.text = sectionsArray;
+    console.log("***This is the text to be UPDATED***", this.state.patternToEdit.text.text);
+    //I need to add an if check that says that if the text to be updated is an empty string, we just do the basic fetch request; if not, we do the emphasis call.
+    //But that's not going to help because text will still be empty. But it's working for everything else. Let's try this approach.
+    if(this.state.patternToEdit.text.text !== undefined) {
+      try{
+        let sectionsArray = stringParser(this.state.patternToEdit.text);
+    		sectionsArray = await this.apiCall(sectionsArray);
+    		sectionsArray.forEach((section) => {
+    			section.data = extractData(section);
+    		})
+    		const entryData = compileData(sectionsArray)
+        console.log('this is sectionsArray', sectionsArray);
+        this.state.patternToEdit.text = sectionsArray;
 
 
-    //  const text = sentenceArrayMaker(sectionsArray)
-    // ^this line of code is what will allow the colors to be represented on the page
+      //  const text = sentenceArrayMaker(sectionsArray)
+      // ^this line of code is what will allow the colors to be represented on the page
 
-      const editResponse = await fetch('http://localhost:9000/api/v1/patterns/' + this.state.patternToEdit._id, {
-        method: 'PUT',
-        credentials: 'include',
-        body: JSON.stringify(this.state.patternToEdit),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      console.log(editResponse);
-      const parsedResponse = await editResponse.json();
-      const editedPatternArray = this.state.patterns.map((pattern) => {
-        if(pattern._id === this.state.patternToEdit._id){
-          pattern = parsedResponse.data
-        }
-        return pattern
-      });
-      this.setState({
-        patterns: editedPatternArray,
-        modalShowing: false,
-        listShowing: true,
-      });
-    } catch(err) {
-      console.log(err);
+        const editResponse = await fetch('http://localhost:9000/api/v1/patterns/' + this.state.patternToEdit._id, {
+          method: 'PUT',
+          credentials: 'include',
+          body: JSON.stringify(this.state.patternToEdit),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        console.log(editResponse);
+        const parsedResponse = await editResponse.json();
+        const editedPatternArray = this.state.patterns.map((pattern) => {
+          if(pattern._id === this.state.patternToEdit._id){
+            pattern = parsedResponse.data
+          }
+          return pattern
+        });
+        this.setState({
+          patterns: editedPatternArray,
+          modalShowing: false,
+          listShowing: true,
+        });
+      } catch(err) {
+        console.log(err);
+      }
+    } else {
+      try{
+        const editResponse = await fetch('http://localhost:9000/api/v1/patterns/' + this.state.patternToEdit._id, {
+          method: 'PUT',
+          credentials: 'include',
+          body: JSON.stringify(this.state.patternToEdit),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        console.log(editResponse);
+        const parsedResponse = await editResponse.json();
+        const editedPatternArray = this.state.patterns.map((pattern) => {
+          if(pattern._id === this.state.patternToEdit._id){
+            pattern = parsedResponse.data
+          }
+          return pattern
+        });
+        this.setState({
+          patterns: editedPatternArray,
+          modalShowing: false,
+          listShowing: true,
+        });
+      } catch(err) {
+        console.log(err);
+      }
     }
+
   }
   handleFormChange = (e) => {
     console.log('this is handleFormChange');
@@ -189,6 +244,7 @@ apiCall = async (array) => {
     })
   }
   render(){
+    console.log('this is state.patternTypes', this.state.patternTypes);
     console.log('this is this.state.patterns in PatternContainer', this.state.patterns);
     console.log(this.state);
     return(
@@ -196,9 +252,9 @@ apiCall = async (array) => {
         <h1>Pattern Dictionary</h1>
         <p><i>A collection of patterns of sentence-level emphasis with examples and descriptions created using <a href='http://emphasis.ai'>emphasis.ai</a></i>.</p>
         <button onClick={this.showCreate}>Create a Pattern</button>
-        {this.state.createShowing ? <CreatePattern addPattern={this.addPattern}/> : null}
-        {this.state.listShowing ? <PatternList patterns={this.state.patterns} showModal={this.showModal} deletePattern={this.deletePattern}/> : null}
-        {this.state.modalShowing ? <PatternEditor patternToEdit={this.state.patternToEdit} editPattern={this.editPattern} handleFormChange={this.handleFormChange} /> : null}
+        {this.state.createShowing ? <CreatePattern patternTypes={this.state.patternTypes} addPattern={this.addPattern}/> : null}
+        {this.state.listShowing ? <div><TypeList patternTypes={this.state.patternTypes} /> <PatternList patterns={this.state.patterns} showModal={this.showModal} deletePattern={this.deletePattern}/></div> : null}
+        {this.state.modalShowing ? <PatternEditor patternToEdit={this.state.patternToEdit} patternTypes={this.state.patternTypes} editPattern={this.editPattern} handleFormChange={this.handleFormChange} /> : null}
       </div>
     )
   }
