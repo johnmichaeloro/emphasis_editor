@@ -3,7 +3,6 @@ const PatternType = require('./patternType');
 const User = require('./user');
 const Schema = mongoose.Schema;
 
-
 const patternSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
