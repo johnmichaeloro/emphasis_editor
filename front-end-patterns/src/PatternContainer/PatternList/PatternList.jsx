@@ -40,7 +40,7 @@ const PatternList = (props) => {
         <span>Title:{pattern.title}</span><br/>
         <span>Author:{pattern.author}</span><br/>
         <span>Publication:{pattern.publication}</span><br/>
-        <span>Year:{pattern.publication}</span><br/>
+        <span>Year:{pattern.year}</span><br/>
         <span>URL:{pattern.url}</span><br/>
         <span>Pattern Type:{pattern.patternType.patternType}</span><br/>
         <span>Description:{pattern.patternType.description}</span><br/>

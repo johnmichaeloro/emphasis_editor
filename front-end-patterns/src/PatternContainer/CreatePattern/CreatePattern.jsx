@@ -34,11 +34,20 @@ class CreatePattern extends Component {
   })
 
   render(){
-    const descriptionMapper = this.props.patternTypes.map((patternType) => {
+    // const descriptionMapper = this.props.patternTypes.map((patternType) => {
+    //   if(patternType._id === this.state.patternType){
+    //     return patternType.description;
+    //   }
+    // })
+
+    let descriptionMapper;
+    this.props.patternTypes.forEach((patternType) => {
       if(patternType._id === this.state.patternType){
-        return patternType.description;
+        descriptionMapper = patternType.description;
       }
     })
+
+    console.log(descriptionMapper, 'this is descriptionMapper');
     return(
       <div>
         <form onSubmit={this.props.addPattern.bind(null, this.state)}>
